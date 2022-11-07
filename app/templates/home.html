@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-3" style="width: 95%; font-size: 15px;">
+    <form action="" method="post" class="card p-3 mt-5" autocomplete="off">
+        {% csrf_token %}
+        {{forms}}
+    </form>
+
+    <!-- message from backend -->
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+    {% endfor %}
+
+</div>
+{% endblock %}
