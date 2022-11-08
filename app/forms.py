@@ -1,8 +1,8 @@
 from django import forms
 
-from .models import Candidates
+from .models import Candidate
 
-class CandidatesForm(forms.ModelForm):
+class CandidateForm(forms.ModelForm):
     class Meta:
-        model=Candidates
+        model=Candidate
         fields= ['firstname', 'lastname', 'email', 'messages']

@@ -3,7 +3,11 @@
 ## 日誌
 
 > 2022.11.07
-- 
+- models.py: add Candidates Model
+
+> 2022.11.08
+- register admin.py
+
 ## 筆記
 
 ## 參考資料

@@ -5,11 +5,17 @@
     <form action="" method="post" class="card p-3 mt-5" autocomplete="off">
         {% csrf_token %}
         {{forms}}
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
     </form>
 
     <!-- message from backend -->
     {% for message in messages %}
         {% if message.tags == 'success' %}
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            {{message}}
+            <a href="{% url 'home' %}" type="button" class="btn btn-close" data-bs-dismaiss="alert" aria-label="Close"></a>
+        </div>
+        {% endif %}
     {% endfor %}
 
 </div>

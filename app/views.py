@@ -2,14 +2,14 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 
-from .forms import CandidatesForm
+from .forms import CandidateForm
 
 # Create your views here.
 
 def home(request):
-    forms=CandidatesForm
+    forms=CandidateForm
     if request.method == 'POST':
-        forms= CandidatesForm(request.POST or None)
+        forms= CandidateForm(request.POST or None)
         if forms.is_valid():
             forms.save()
             messages.success(request, 'Register is successful')
