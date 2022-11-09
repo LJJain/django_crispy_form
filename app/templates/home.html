@@ -1,17 +1,43 @@
 {% extends 'base.html' %}
 
+<!-- load boostrap5 crispy-form -->
+{% load crispy_forms_tags %}
+
 {% block content %}
 <div class="container mt-3" style="width: 95%; font-size: 15px;">
-    <form action="" method="post" class="card p-3 mt-5" autocomplete="off">
+    <form action="" method="post" class="card p-3 mt-5" autocomplete="off" novalidate>
         {% csrf_token %}
-        {{forms}}
-        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        <!-- {{forms|crispy}} -->
+        <div class="row">
+            <div class="col-4">
+                {{forms.firstname|as_crispy_field}}
+            </div>
+            <div class="col-4">
+                {{forms.lastname|as_crispy_field}}
+            </div>
+            <div class="col-4">
+                {{forms.job|as_crispy_field}}
+            </div>
+
+            <div class="col-4">
+                {{forms.email|as_crispy_field}}
+            </div>
+            <div class="col-4">
+                {{forms.age|as_crispy_field}}
+            </div>
+            <div class="col-4">
+                {{forms.phone|as_crispy_field}}
+            </div>
+
+            {{forms.messages|as_crispy_field}}
+        </div>
+        <button type="submit" class="btn btn-outline-primary mt-3" style="width: 90px;">Submit</button>
     </form>
 
     <!-- message from backend -->
     {% for message in messages %}
         {% if message.tags == 'success' %}
-        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <div class="text-center alert alert-primary alert-dismissible fade show" role="alert">
             {{message}}
             <a href="{% url 'home' %}" type="button" class="btn btn-close" data-bs-dismaiss="alert" aria-label="Close"></a>
         </div>
