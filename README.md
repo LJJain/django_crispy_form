@@ -16,6 +16,17 @@
 - Install Jazzmin
 - Capitalize the first and last name (models.py)
 
+> 2022.11.12
+- Radio button
+- Select (選單:two methods): 1. models.py(PERSONALITY) 2. forms.py(SALARY)
+- Checkbox (experience)
+- signal
+- files
+- django-cleanup (delete file when delete candidate)
+- django-multiselectfield
+- django-ckeditor
+
+
 ## 筆記
 
 > install crispy-bootstrap5
@@ -36,6 +47,44 @@
     'jazzmin',
 ]
 
+> files (upload)
+- settings.py:
+
+    import os
+
+    MEDIA_URL = '/media/'
+
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+- urls.py(project):
+
+    from . import settings
+
+    from django.conf.urls.static import static
+
+    +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)  (urlpatterns)
+
+> Django Custom Admin Panel using JET Theme
+- not yet
+
+> Django Cleanup
+- pip install django-cleanup
+- INSTALLED_APPS = [
+    'django_cleanup',
+]
+
+> django-multiselectfield
+- pip install django-multiselectfield
+- INSTALLED_APPS = [
+    'multiselectfield',
+]
+
+> django-ckeditor
+- pip install django-ckeditor
+- INSTALLED_APPS = [
+    'ckeditor',
+]
+
 ## 參考資料
 
 > 教學網站
@@ -49,3 +98,9 @@
 
 > jquery.mask CDN
 - https://cdnjs.com/libraries/jquery.mask
+
+> Django Custom Admin Panel using JET Theme
+- https://www.youtube.com/watch?v=NKuhpkqg-H8&ab_channel=DjangoMastery 
+
+> django-multiselectfield
+- https://pypi.org/project/django-multiselectfield/

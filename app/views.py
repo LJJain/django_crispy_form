@@ -9,7 +9,7 @@ from .forms import CandidateForm
 def home(request):
     forms=CandidateForm
     if request.method == 'POST':
-        forms= CandidateForm(request.POST or None)
+        forms= CandidateForm(request.POST, request.FILES)
         if forms.is_valid():
             forms.save()
             messages.success(request, 'Register is successful')
