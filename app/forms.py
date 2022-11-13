@@ -79,13 +79,13 @@ class CandidateForm(forms.ModelForm):
     #     )
 
     # Age
-    age = forms.IntegerField(
-        label='Age', max_value=200,
-        # validators=[RegexValidator(r'^[0-9]*$', 
-        # message='Only numbers is allowed !')], 
-        widget=forms.NumberInput(attrs={'placeholder': 'Your Age'}),
-        # required=False
-    )
+    # age = forms.IntegerField(
+    #     label='Age', max_value=200,
+    #     # validators=[RegexValidator(r'^[0-9]*$', 
+    #     # message='Only numbers is allowed !')], 
+    #     widget=forms.NumberInput(attrs={'placeholder': 'Your Age'}),
+    #     # required=False
+    # )
 
     # Checkbox
     experience = forms.BooleanField(
@@ -100,18 +100,114 @@ class CandidateForm(forms.ModelForm):
         widget=forms.Textarea(
             attrs={'placeholder': 'Talk a little about you .', 'rows':5}
             # 'rows':5 限制textarea行數
-        ),         
+        )         
     )
 
-    # File (Upload)
+    # File (Upload resume)
     file = forms.FileField(
         required=False,
         widget=forms.ClearableFileInput(
             attrs={
-                'style': 'font-size: 13px;'
+                'style': 'font-size: 13px;',
+                # method 1 
+                # 'accept': 'application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprcessingml.document',
             }
         )
     )
+
+    # Image (Upload photo)
+    image = forms.FileField(
+        required=False,
+        widget=forms.ClearableFileInput(
+            attrs={
+                'style': 'font-size: 13px;',
+                'accept': 'image/png, image/jepg',
+            }
+        )
+    ) 
+
+    # Institution
+    institution = forms.CharField(
+        label= 'Institution',
+        min_length=3, 
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'style': 'font-size: 13px;',
+                'placeholder': 'Institution Name',
+            }
+        )
+    )
+
+    # Course
+    institution = forms.CharField(
+        min_length=3, 
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'style': 'font-size: 13px;',
+                'placeholder': 'Your Course',
+            }
+        )
+    )
+
+    # about_course
+    about_course = forms.CharField(
+        label='About your Course', 
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                'placeholder': 'Talk a little about you .',
+                'style': 'font-size: 13px;',
+                'rows':5, # 'rows':5 限制textarea行數
+            }
+        )         
+    )
+
+    # about_job
+    about_job = forms.CharField(
+        label='About your Course', 
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                'placeholder': 'Talk a little about you .',
+                'style': 'font-size: 13px;',
+                'rows':5, # 'rows':5 限制textarea行數
+            }
+        )         
+    )
+
+    # Company (Last Company)
+    company = forms.CharField(
+        label= 'Last Company', 
+        required=False,
+        min_length=3,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Company Name',
+                'style': 'font-size: 13px;',
+            }
+        )
+    )
+
+    # Position
+    position = forms.CharField(
+        label= 'Last Company', 
+        required=False,
+        min_length=3,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Your Occupation',
+                'style': 'font-size: 13px;',
+            }
+        )
+    )
+
+    employed = forms.BooleanField(label='I am employed .', required=False)
+    remote = forms.BooleanField(label='I agree to work remotly', required=False)
+    travel = forms.BooleanField(label='I am available for travel', required=False)
 
     # method 1 (Gender)
     # GENDER = [('M', 'Male'), ('F', 'Female'),]
@@ -129,10 +225,12 @@ class CandidateForm(forms.ModelForm):
         exclude = ['created', 'Situation']
 
         # Label control
-        # labels = {
-        #     'gender':'Your Gender',
-        #     'smoker':'Do you Smoke ?',
-        # }
+        labels = {
+            'started_course':'Start',
+            'finished_course':'Finished',
+            'started_job':'Start',
+            'finished_job':'Finished',
+        }
 
         SALARY = (
             ('', 'Salary Expectation (per month)'),
@@ -147,6 +245,61 @@ class CandidateForm(forms.ModelForm):
 
         # OUTSIDE WIDGETS
         widgets = {
+            # Birth date
+            'birth':forms.DateInput(
+                attrs={
+                    'style':'font-size:13px; cursor: pointer', #CSS
+                    'type': 'date',
+                    'onkeydown': 'return false',    #Block typing inside the input
+                    'min': '1900-01-01',
+                    'max': '2100-12-31',
+                }
+            ),
+
+            # started_course
+            'started_course':forms.DateInput(
+                attrs={
+                    'style':'font-size:13px; cursor: pointer', #CSS
+                    'type': 'date',
+                    'onkeydown': 'return false',    #Block typing inside the input
+                    'min': '1900-01-01',
+                    'max': '2100-12-31',
+                }
+            ),
+
+            # finished_course
+            'finished_course':forms.DateInput(
+                attrs={
+                    'style':'font-size:13px; cursor: pointer', #CSS
+                    'type': 'date',
+                    'onkeydown': 'return false',    #Block typing inside the input
+                    'min': '1900-01-01',
+                    'max': '2100-12-31',
+                }
+            ),
+
+            # started_job
+            'started_job':forms.DateInput(
+                attrs={
+                    'style':'font-size:13px; cursor: pointer', #CSS
+                    'type': 'date',
+                    'onkeydown': 'return false',    #Block typing inside the input
+                    'min': '1900-01-01',
+                    'max': '2100-12-31',
+                }
+            ),
+
+            # finished_job
+            'finished_job':forms.DateInput(
+                attrs={
+                    'style':'font-size:13px; cursor: pointer', #CSS
+                    'type': 'date',
+                    'onkeydown': 'return false',    #Block typing inside the input
+                    'min': '1900-01-01',
+                    'max': '2100-12-31',
+                }
+            ),
+
             # Phone
             'phone':forms.TextInput(
                 attrs={
@@ -180,7 +333,6 @@ class CandidateForm(forms.ModelForm):
                     'class':'btn-check', #Boostrap
                 }
             ),
-
         }
 
     # 'SUPER' FUNCTIONS
@@ -198,7 +350,8 @@ class CandidateForm(forms.ModelForm):
         # self.fields['email'].widget.attrs.update({'readonly':'readonly'})
         
         # 4) SELECT OPTION 
-        self.fields["personality"].choices = [('', 'Select your personality'),] + list(self.fields["personality"].choices)[1:]
+        # self.fields["personality"].choices = [('', 'Select your personality'),] + list(self.fields["personality"].choices)[1:]
+        # self.fields["status_course"].choices = [('', 'Select your status'),] + list(self.fields["status_course"].choices)[1:]
 
         # 5) WEDGETS (inside/outside)
         # self.fields['phone'].widget.attrs.update(
@@ -272,16 +425,25 @@ class CandidateForm(forms.ModelForm):
             raise forms.ValidationError('This Code is Invalid !')
 
     # ================== 3. Age (Range: 18-65) =========|
-    def clean_age(self):
-        age = self.cleaned_data.get('age')
-        if age < 18 or age > 65:
-            raise forms.ValidationError('Age must be between 18 and 65')
-        return age
+    # def clean_age(self):
+    #     age = self.cleaned_data.get('age')
+    #     if age < 18 or age > 65:
+    #         raise forms.ValidationError('Age must be between 18 and 65')
+    #     return age
 
     # ================== 4. Phone (Prevent incomplete values) =========|
-    def clean_phone(self):
-        phone = self.cleaned_data.get('phone')
-        if len(phone) != 10:
-            raise forms.ValidationError('Wrong phone number !')
-        return phone
+    # def clean_phone(self):
+    #     phone = self.cleaned_data.get('phone')
+    #     if len(phone) != 10:
+    #         raise forms.ValidationError('Wrong phone number !')
+    #     return phone
+
+    # ================== 5. RESTRICTION (File extensions - method 2) =========|
+    def clean_file(self):
+        file = self.cleaned_data('file')
+        content = file.content
+        if content == 'application/pdf' or content == 'application/msword' :
+            return file
+        else:
+            raise forms.ValidationError('Only PDF,DOC and DOCX')
 

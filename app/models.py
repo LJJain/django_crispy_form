@@ -80,14 +80,24 @@ OTHERS = (
     ('Others', 'Others'),
 )
 
+# EDUCATION
+STATUS_COURSE = (
+    ('', 'Select your status'),
+    ('Studying', 'Studying'),
+    ('Break', 'Break'),
+    ('Completed', 'Completed'),
+)
+
 
 
 class Candidate(models.Model):
+    # PERSONAL (CARD 1)
     firstname = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
-    job = models.CharField(max_length=5, null=True, blank=True)
+    job = models.CharField(max_length=5, null=True, blank=True, verbose_name='Job Code')
     email = models.EmailField(max_length=50)
-    age = models.IntegerField(null=True)
+    # age = models.IntegerField(null=True)
+    birth = models.DateField(auto_now=False, auto_now_add=False, verbose_name='Birthday', null=True)
     phone = models.CharField(max_length=20, null=True)
 
     personality = models.CharField(max_length=50, null=True, choices=PERSONALITY)
@@ -96,14 +106,17 @@ class Candidate(models.Model):
     experience = models.BooleanField(null=True)
     smoker = models.CharField(max_length=10, null=True, choices=SMOKER, default="")
 
-    messages = models.TextField()
+    messages = models.TextField(verbose_name='Presentation')
 
-    file = models.FileField()
+    file = models.FileField(upload_to='resume', blank=True, verbose_name='Resume')
+    image = models.ImageField(upload_to='photo', blank=True, verbose_name='Photo')
 
     Situation = models.CharField(max_length=100, null=True, choices=SITUATION, default='Pending')
     created = models.DateTimeField(auto_now_add=True)
 
     company_note = models.TextField(blank=True)
+    
+    # SKILLS (CARD 2)
     # Multiple Checkboxes
     frameworks = MultiSelectField(max_length=50, choices=FRAMEWORKS, default="")
     languages = MultiSelectField(max_length=50, choices=LANGUAGES, default="")
@@ -111,6 +124,24 @@ class Candidate(models.Model):
     libraries = MultiSelectField(max_length=50, choices=LIBRARIES, default="")
     mobile = MultiSelectField(max_length=50, choices=MOBILE, default="")
     others = MultiSelectField(max_length=50, choices=OTHERS, default="")
+
+    # EDUCATION (CARD 3)
+    institution = models.CharField(max_length=50, null=True)
+    course = models.CharField(max_length=50, null=True)
+    started_course = models.DateField(auto_now_add=False, auto_now=False, null=True)
+    finished_course = models.DateField(auto_now=False, auto_now_add=False, null=True)
+    about_course = models.TextField(null=True)
+    status_course = models.CharField(max_length=50, null=True, choices=STATUS_COURSE)
+
+    # PROFESSIONAL (CARD 4)
+    company = models.CharField(max_length=50, null=True)
+    position = models.CharField(max_length=50, null=True)
+    started_job = models.DateField(auto_now_add=False, auto_now=False,null=True)
+    finished_job = models.DateField(auto_now=False, auto_now_add=False, null=True)
+    about_job = models.TextField(max_length=200, null=True)
+    employed = models.BooleanField(null=True, verbose_name="I am employed .")
+    remote = models.BooleanField(null=True, verbose_name="I agree to work remotly")
+    travel = models.BooleanField(null=True, verbose_name="I'm available for travel")
     
     # Capitalize the first and last name
     def clean(self):

@@ -9,12 +9,39 @@ from .forms import CandidateForm
 class CandidateAdmin(admin.ModelAdmin):
     radio_fields = {'smoker': admin.HORIZONTAL}
     form = CandidateForm
-    readonly_fields = ['email', 'job', 'age', 'phone']
     exclude = ['status']
     list_filter = ['Situation']
-    list_display = ['name', 'email', 'job', 'age', 'created', 'status', '_']
-    search_fields = ['firstname', 'lastname', 'email', 'age', 'Situation']
+    list_display = ['name', 'email', 'job', 'created', 'status', '_']
+    search_fields = ['firstname', 'lastname', 'email', 'Situation']
     list_per_page = 25
+
+    # Readonly Section
+    readonly_fields = ['email', 'job', 'phone']
+
+    # FIELDSET
+    fieldsets = [
+        # HR Operations
+        ("HR OPERATIONS", {'fields': ['Situation', 'company_note']}),
+        # PERSONAL
+        ("PERSONAL", {'fields': [
+            'experience', 'gender', 'job', 'email', 'phone', 'salary',
+            'birth', 'personality', 'smoker', 'file', 'image', 'messages',
+        ]}),
+        # SKILLS
+        ("SKILLS", {'fields': ['frameworks', 'languages', 'databases', 'libraries', 'mobile', 'others']}),
+        # EDUCATION
+        ("EDUCATION", {'fields': [
+            'status_course', 'started_course', 'finished_course',
+            'institution', 'course', 'about_course',        
+        ]}),
+        # PROFESSIONAL
+        ("EDUCATION", {'fields': [
+            'started_job', 'finished_job', 'company',
+            'position', 'about_job',     
+        ]}),
+        # NOTE
+        ("NOTE", {'fields': ['employed', 'remote', 'travel']}),
+    ]
 
     # Function to hide F-name and L-name (When clicking over the candidates -- Rows)
     def get_fields(self, request, obj = None):
