@@ -10,6 +10,6 @@ html, body {
     min-height: 100%;
     margin-bottom: -50px;
 }
-#footer, .push {
+#footer .push {
     height: 50px;
 }

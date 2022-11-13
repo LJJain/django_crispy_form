@@ -26,6 +26,21 @@
 - django-multiselectfield
 - django-ckeditor
 
+> 2022.11.13
+- unique (email): two methods
+- Concatenate F-name+L-name (Admin-table): models.py
+- Overwrite error messages (forms.py)
+    - Replace the native error message
+    - Replace (useing SUPER FUNCTION)
+    - Advanced Control Panel to change the error message(for loop [array])
+    - Boostrap alerts :[All Fields] Error Messages from forms.py
+    - Boostrap alerts :[Individual] Error Messages from forms.py
+    - SweetAlert (Optional: Using JS tags)
+- Internal (Textarea) to the company
+- Function (METHOD CLEAN): forms.py
+
+
+
 
 ## 筆記
 
@@ -84,6 +99,9 @@
 - INSTALLED_APPS = [
     'ckeditor',
 ]
+- not yet
+
+
 
 ## 參考資料
 
